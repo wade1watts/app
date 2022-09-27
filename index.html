@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Заголовок документа</title>
+    <style> 
+      body {
+      background-color: #8ebf42;
+      }
+      form {
+      width:400px;
+      margin:auto;
+      margin-top: 250px;
+      }
+      input{
+      padding:4px 10px;
+      border:0;
+      font-size:16px;
+      }
+      .search {
+      width: 75%;
+      }
+      .submit{
+      width: 70px;
+      background-color: #1c87c9;
+      color:#ffffff;
+      }
+    </style>
+  </head>
+  <body> 
+      <input type="text" id="name" class="search" placeholder="Поиск по БД...">
+      <button onclick="sendJSON()">Поиск</button>
+    <script>
+        async function sendJSON(){
+          const name = document.querySelector('#name');
+          fetch('http://localhost:3000/checkUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+                },
+            body: JSON.stringify({'name':name.value})
+            })
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              console.log(data.name)
+              alert(data.name);
+            });
+          };
+    </script>
+  </body>
+</html>
